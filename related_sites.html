@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAPass</title>
+    <link rel="icon" href="./img/a290ce7b8d2b20d77fc2c81936f0f463.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="./img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="GenAPass Logo">
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="index.html">Main</a> 
+            <a href="password.html">Passwords</a> 
+            <a href="related_sites.html">Related Sites</a>
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" id="registerLink">Register</a>
+            <a href="#" id="loginLink">Login</a>
+        </div>
+    </header>
+
+    <section class="site-list-container">
+        <div class="container">
+            <h1>List of related sites</h1>
+            <ul class="related-sites-list" id="siteList"></ul>
+
+            <div class="add-new-site">
+                <input type="text" id="siteNameInput" placeholder="Название сайта" maxlength="30">
+                <input type="url" id="siteUrlInput" placeholder="https://example.com" pattern="https://.*" required>
+                <button onclick="addNewSite()">Добавить сайт</button>
+            </div>
+        </div>
+
+        <div class="password-change-section">
+            <h2>Password Update Options::</h2>
+            <div class="update-info">
+            </div>
+            <button onclick="generatePasswords()">Generate new passwords</button>
+        </div>
+    </section>
+
+    <div class="overlay" style="display: none;" id="loginOverlay">
+        <div class="auth-container">
+            <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
+                style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
+            <h2>Log In to GenAPass</h2>
+            <input type="text" placeholder="Username" required>
+            <div class="eyes-container">
+                <div class="eyes-container">
+                    <div class="eye">
+                        <div class="eyelid"></div>
+                        <div class="ball"></div>
+                    </div>
+                    <div class="eye">
+                        <div class="eyelid"></div>
+                        <div class="ball"></div>
+                    </div>
+                    <p class="security-message" id="securityMessage">Ваша безопасность — это не просто слова</p>
+                </div>
+            </div>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="auth-button">Log In</button>
+            <a class="toggle-link auth-button" href="#" id="switchToRegister">Need an account? Register</a>
+        </div>
+    </div>
+
+    <div class="overlay" style="display: none;" id="registerOverlay">
+        <div class="auth-container">
+            <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
+                style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
+            <h2>Register at GenAPass</h2>
+            <input type="text" placeholder="Username" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit" class="auth-button">Register</button>
+            <a class="toggle-link auth-button" href="#" id="switchToLogin">Already have an account? Log In</a>
+        </div>
+    </div>
+
+    <script>
+        // Предустановленные сайты
+        const defaultSites = [
+            {
+                name: 'YouTube',
+                url: 'https://www.youtube.com',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://www.youtube.com',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            },
+            {
+                name: 'Instagram',
+                url: 'https://www.instagram.com',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://www.instagram.com',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            },
+            {
+                name: 'Facebook',
+                url: 'https://www.facebook.com',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://www.facebook.com',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            },
+            {
+                name: 'VK',
+                url: 'https://vk.com',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://vk.com',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            },
+            {
+                name: 'Telegram',
+                url: 'https://web.telegram.org',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://web.telegram.org',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            },
+            {
+                name: 'Twitter',
+                url: 'https://twitter.com',
+                favicon: 'https://www.google.com/s2/favicons?sz=64&domain_url=https://twitter.com',
+                password: generateRandomPassword(),
+                updateFrequency: 'monthly'
+            }
+        ];
+
+        // Получение списка сайтов из localStorage или добавление предустановленных сайтов
+        let siteList = JSON.parse(localStorage.getItem('siteList')) || [];
+
+        // Если список пуст, добавляем предустановленные сайты
+        if (siteList.length === 0) {
+            siteList = [...defaultSites];
+            saveSiteList();
+        }
+
+        // Функция копирования пароля в буфер обмена
+        function copyToClipboard(password) {
+            navigator.clipboard.writeText(password).then(() => {
+                alert('Пароль скопирован в буфер обмена!');
+            }).catch(err => {
+                console.error('Не удалось скопировать текст: ', err);
+            });
+        }
+
+        // Добавление нового сайта в список
+        function addNewSite() {
+            const siteNameInput = document.getElementById('siteNameInput');
+            const siteUrlInput = document.getElementById('siteUrlInput');
+            const siteName = siteNameInput.value.trim();
+            const siteUrl = siteUrlInput.value.trim();
+
+            if (siteName && siteUrl) {
+                const favicon = `https://www.google.com/s2/favicons?sz=64&domain_url=${siteUrl}`;
+                const newSite = {
+                    name: siteName,
+                    url: siteUrl,
+                    favicon: favicon,
+                    password: generateRandomPassword(),
+                    updateFrequency: 'monthly'
+                };
+                siteList.push(newSite);
+                saveSiteList();
+                renderSiteList();
+                siteNameInput.value = '';
+                siteUrlInput.value = '';
+            } else {
+                alert('Введите название сайта и ссылку!');
+            }
+        }
+
+        // Генерация новых паролей для выбранных сайтов
+        function generatePasswords() {
+            const checkboxes = document.querySelectorAll('.site-checkbox');
+            checkboxes.forEach((checkbox, index) => {
+                if (checkbox.checked) {
+                    siteList[index].password = generateRandomPassword();
+                }
+            });
+            saveSiteList();
+            renderSiteList();
+        }
+
+        // Удаление сайта из списка
+        function deleteSite(index) {
+            siteList.splice(index, 1);
+            saveSiteList();
+            renderSiteList();
+        }
+
+        // Отображение списка сайтов с чекбоксами
+        function renderSiteList() {
+            const siteListElement = document.getElementById('siteList');
+            siteListElement.innerHTML = '';
+
+            siteList.forEach((site, index) => {
+                const siteElement = document.createElement('li');
+                siteElement.className = 'related-site'; // Добавляем класс для дополнительных стилей
+
+                siteElement.innerHTML = `
+            <input type="checkbox" class="site-checkbox" id="checkbox-${index}">
+            <img src="${site.favicon}" alt="favicon" class="favicon">
+            <span><a href="${site.url}" target="_blank">${site.name}</a></span>
+            <span>${site.password}</span>
+            <i class="far fa-copy" onclick="copyToClipboard('${site.password}')"></i>
+            <label>
+                <select class="update-frequency" onchange="updateFrequency(${index}, this.value)">
+                    <option value="none" ${site.updateFrequency === 'none' ? 'selected' : ''}>Не обновлять</option>
+                    <option value="bi-weekly" ${site.updateFrequency === 'bi-weekly' ? 'selected' : ''}>Каждые 2 недели</option>
+                    <option value="monthly" ${site.updateFrequency === 'monthly' ? 'selected' : ''}>Каждый месяц</option>
+                    <option value="bi-monthly" ${site.updateFrequency === 'bi-monthly' ? 'selected' : ''}>Каждые 2 месяца</option>
+                    <option value="six-months" ${site.updateFrequency === 'six-months' ? 'selected' : ''}>Каждые 6 месяцев</option>
+                    <option value="yearly" ${site.updateFrequency === 'yearly' ? 'selected' : ''}>Каждый год</option>
+                </select>
+            </label>
+            <button onclick="deleteSite(${index})">Удалить</button>
+        `;
+                siteListElement.appendChild(siteElement);
+            });
+        }
+
+        // Обновление частоты обновления пароля
+        function updateFrequency(index, frequency) {
+            siteList[index].updateFrequency = frequency;
+            saveSiteList();
+        }
+
+        // Сохранение списка сайтов в localStorage
+        function saveSiteList() {
+            localStorage.setItem('siteList', JSON.stringify(siteList));
+        }
+
+        // Генерация случайного пароля
+        function generateRandomPassword() {
+            return Math.random().toString(36).slice(-10);
+        }
+
+        // При загрузке страницы отображаем список сайтов
+        document.addEventListener('DOMContentLoaded', renderSiteList);
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="contacts">
+            <p>+7 (921) 766-19-12 | +7 (900) 123-45-89</p>
+            <p>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a> |
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a> |
+                <a href="#" class="social-link"><i class="fab fa-telegram-plane"></i> Telegram</a> |
+                <a href="#" class="social-link"><i class="fab fa-vk"></i> VK</a>
+            </p>
+        </div>
+        <p>&copy; GenAPass. Все права защищены.</p>
+    </footer>
+
+    <script src="./js/scripts.js"></script>
+</body>
+
+</html>
