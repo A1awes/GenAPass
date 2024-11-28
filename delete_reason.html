@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запрос на удаление профиля</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        /* Ваши стили остаются без изменений */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f1b2b, #1c2f4a);
+            color: #dfe7ef;
+            overflow: hidden;
+        }
+
+        .delete-request {
+            width: 90%;
+            max-width: 500px;
+            background: #2a3a4d;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            padding: 2em;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .delete-request h2 {
+            font-size: 1.8em;
+            margin-bottom: 1.5em;
+            color: #dfe7ef;
+            text-align: center;
+        }
+
+        .delete-request label {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #3c4e63;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-request label:hover {
+            background-color: #3c4e63;
+        }
+
+        .delete-request input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #5a99c5;
+            transform: scale(1.2);
+        }
+
+        #comment {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #3c4e63;
+            background-color: #334960;
+            color: #dfe7ef;
+            margin-top: 10px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        #comment:focus {
+            border-color: #5a99c5;
+            outline: none;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #5a99c5, #85b5d8);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 15px rgba(90, 153, 197, 0.5);
+        }
+
+        #confirmationMessage {
+            display: block;
+            color: #5a99c5;
+            font-size: 1em;
+            margin-top: 15px;
+            opacity: 0;
+            animation: slideIn 1s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="delete-request">
+        <h2>Почему вы хотите удалить аккаунт?</h2>
+        <form id="deleteForm">
+            <label>
+                <input type="radio" name="reason" value="Неудовлетворенность сервисом" required>
+                Неудовлетворенность сервисом
+            </label>
+            <label>
+                <input type="radio" name="reason" value="Слишком много уведомлений" required>
+                Слишком много уведомлений
+            </label>
+            <label>
+                <input type="radio" name="reason" value="Сложность в использовании" required>
+                Сложность в использовании
+            </label>
+            <label>
+                <input type="radio" name="reason" value="Просто не хочу больше пользоваться" required>
+                Просто не хочу больше пользоваться
+            </label>
+            <label>
+                <input type="radio" name="reason" value="Другое" required>
+                Другое
+            </label>
+
+            <textarea id="comment" name="comment" rows="4" placeholder="Ваш комментарий"></textarea>
+
+            <button type="submit" class="btn-primary">Отправить запрос</button>
+        </form>
+        <p id="confirmationMessage" style="display: none; color: green; margin-top: 10px;">
+            Ваш профиль будет удален в течение 2 недель.
+        </p>
+    </section>
+
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const reason = document.querySelector('input[name="reason"]:checked').value;
+            const comment = document.getElementById('comment').value;
+
+            document.getElementById('confirmationMessage').style.display = 'block';
+
+            // Таймер для автоматического разлогинивания и перехода на главную страницу
+            setTimeout(function () {
+                // Здесь можно выполнить разлогинивание на стороне клиента
+                // Например, удаляем токен из localStorage или сессии
+                // localStorage.removeItem('token'); // если используется localStorage
+
+                // Переход на главную страницу
+                window.location.href = 'index.html'; 
+            }, 5000);
+        });
+    </script>
+</body>
+
+</html>

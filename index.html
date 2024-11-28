@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
+
 <body>
     <header class="header">
         <div class="logo">
@@ -20,8 +21,8 @@
             </a>
         </div>
         <nav class="nav">
-            <a href="index.html">Main</a> 
-            <a href="password.html">Passwords</a> 
+            <a href="index.html">Main</a>
+            <a href="password.html">Passwords</a>
             <a href="related_sites.html">Related Sites</a>
             <button id="themeToggle" class="theme-toggle">
                 <i class="fas fa-moon"></i>
@@ -31,116 +32,258 @@
             <a href="#" id="registerLink">Register</a>
             <a href="#" id="loginLink">Login</a>
         </div>
+        <button class="burger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
-    <section class="first-section">
-        <div class="hero-overlay">
-            <div class="hero-content">
+    <div class="scroll-container">
+        <section class="scroll-section" style="background-image: url('./img/1.jpg');">
+            <div class="content">
                 <h1>Create strong passwords quickly and easily.</h1>
                 <p>AI generating service. Automatic password change. High reliability.</p>
                 <p>Get additional functionality and save all generated passwords - register now and start enjoying all
                     the benefits!</p>
                 <a href="password.html" class="cta-button">Start Now</a>
             </div>
-        </div>
-        <img src="./img/1.jpg" alt="Background Image" class="hero-background">
-    </section>
+        </section>
 
-    <section class="second-section">
-        <div class="second-overlay">
-            <div class="second-content">
-                <h1 class="align-left">We can start from here.</h1>
+        <section class="scroll-section" style="background-image: url('./img/2.png');">
+            <div class="content">
+                <h1>We can start from here.</h1>
                 <p>10+ most popular sites connect us and our platform.</p>
                 <p>The security of your passwords is in the hands of our trusted organization.</p>
-                <a href="#" class="cta-button">GET TO SITES</a> 
             </div>
-            <img src="./img/2.png" alt="Background Image" class="second-background">
-    </section>
+        </section>
 
 
-    <section class="info-section">
-        <div class="info-container">
-            <img src="./img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Platform logo" class="info-logo">
-            <button id="howToUseBtn" class="cta-info-button">HOW TO USE IT?</button>
+        <section class="faq-section">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <p>This is a growing list of common questions about GenAPass. If you don't find your answer here, feel
+                    free to ask in our support chat or community forums.</p>
 
-            <div id="howToUseModal" class="modal">
-                <div class="modal-content">
-                    <h2>How to Use</h2>
-                    <ol>
-                        <li>
-                            <strong>Register your account:</strong> Create an account by providing your email and
-                            setting up a password. This will allow you to manage your sites and passwords securely.
-                        </li>
-                        <li>
-                            <strong>Choose your main sites:</strong> Select the websites where you frequently log in.
-                            You can add, update, or remove these sites at any time, depending on your needs.
-                        </li>
-                        <li>
-                            <strong>Write 5 easy, 5 medium, and 5 complex passwords:</strong> Create 15 passwords: 5
-                            simple for low-risk sites, 5 medium for moderate risk, and 5 complex for highly secure
-                            accounts like banking.
-                        </li>
-                    </ol>
-                    <p><strong>AI will choose future passwords building you!</strong> Our AI will analyze your passwords
-                        and generate new, secure ones for future use, saving you time while enhancing security.</p>
-                    <button id="closeModal" class="cta-button">Close</button>
+                <div class="faq">
+                    <div class="faq-item">
+                        <button class="faq-question">Do I need any technical skills to use GenAPass?</button>
+                        <div class="faq-answer">
+                            <p>No technical skills are required! GenAPass is designed to be user-friendly, allowing
+                                anyone to create strong passwords and manage them securely with just a few clicks.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">Can I use GenAPass to manage passwords for multiple
+                            services?</button>
+                        <div class="faq-answer">
+                            <p>Absolutely! You can link your accounts from popular platforms to GenAPass, making it easy
+                                to generate, update, and manage your passwords for each service in one place.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">How does AI help secure my passwords?</button>
+                        <div class="faq-answer">
+                            <p>Our AI analyzes your password usage patterns and generates highly secure passwords
+                                tailored to the security requirements of each service. It also alerts you to potential
+                                weak points in your password strategy.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">What if I lose access to my GenAPass account?</button>
+                        <div class="faq-answer">
+                            <p>If you lose access, don't worry. Use the account recovery options available during login.
+                                For additional help, our support team is always ready to assist.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p>Use of ToolBuilder is bound by our
+                    <a href="#" class="terms-policy-link">Terms of Service</a> and
+                    <a href="#" class="terms-policy-link">Privacy Policy</a>.
+                </p>
+            </div>
+        </section>
+
+
+
+        <section class="info-section">
+            <div class="info-container">
+                <button id="howToUseBtn" class="cta-info-button">HOW TO USE IT?</button>
+
+                <div id="howToUseModal" class="modal">
+                    <div class="modal-content">
+                        <h2>How to Use</h2>
+                        <ol>
+                            <li>
+                                <strong>Register your account:</strong> Create an account by providing your email and
+                                setting up a password. This will allow you to manage your sites and passwords securely.
+                            </li>
+                            <li>
+                                <strong>Choose your main sites:</strong> Select the websites where you frequently log
+                                in.
+                                You can add, update, or remove these sites at any time, depending on your needs.
+                            </li>
+                            <li>
+                                <strong>Write 5 easy, 5 medium, and 5 complex passwords:</strong> Create 15 passwords: 5
+                                simple for low-risk sites, 5 medium for moderate risk, and 5 complex for highly secure
+                                accounts like banking.
+                            </li>
+                        </ol>
+                        <p><strong>AI will choose future passwords building you!</strong> Our AI will analyze your
+                            passwords
+                            and generate new, secure ones for future use, saving you time while enhancing security.</p>
+                        <button id="closeModal" class="cta-button">Close</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="overlay" style="display: none;" id="loginOverlay">
-        <div class="auth-container">
-            <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
-                style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
-            <h2>Log In to GenAPass</h2>
-            <input type="text" placeholder="Username" required>
-            <div class="eyes-container">
+        <div class="overlay" style="display: none;" id="loginOverlay">
+            <div class="auth-container">
+                <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
+                    style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
+                <h2>Log In to GenAPass</h2>
+                <input type="text" placeholder="Username" required>
                 <div class="eyes-container">
-                    <div class="eye">
-                        <div class="eyelid"></div>
-                        <div class="ball"></div>
+                    <div class="eyes-container">
+                        <div class="eye">
+                            <div class="eyelid"></div>
+                            <div class="ball"></div>
+                        </div>
+                        <div class="eye">
+                            <div class="eyelid"></div>
+                            <div class="ball"></div>
+                        </div>
+                        <p class="security-message" id="securityMessage">Ваша безопасность — это не просто слова</p>
                     </div>
-                    <div class="eye">
-                        <div class="eyelid"></div>
-                        <div class="ball"></div>
-                    </div>
-                    <p class="security-message" id="securityMessage">Ваша безопасность — это не просто слова</p>
                 </div>
+                <input type="password" id="password" placeholder="Password" required>
+                <p class="error-message" id="loginErrorMessage"></p>
+                <button type="submit" class="auth-button">Log In</button>
+                <a class="toggle-link auth-button" href="#" id="switchToRegister">Need an account? Register</a>
             </div>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit" class="auth-button">Log In</button>
-            <a class="toggle-link auth-button" href="#" id="switchToRegister">Need an account? Register</a>
         </div>
-    </div>
 
-    <div class="overlay" style="display: none;" id="registerOverlay">
-        <div class="auth-container">
-            <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
-                style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
-            <h2>Register at GenAPass</h2>
-            <input type="text" placeholder="Username" required>
-            <input type="password" id="registerPassword" placeholder="Password" required>
-            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-            <button type="submit" class="auth-button">Register</button>
-            <a class="toggle-link auth-button" href="#" id="switchToLogin">Already have an account? Log In</a>
+        <div class="overlay" style="display: none;" id="registerOverlay">
+            <div class="auth-container">
+                <img src="img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="Logo" class="logo"
+                    style="width: 50px; height: 50px; position: absolute; top: 10px; left: 10px;">
+                <h2>Register at GenAPass</h2>
+                <input type="text" placeholder="Username" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <button type="submit" class="auth-button">Register</button>
+                <a class="toggle-link auth-button" href="#" id="switchToLogin">Already have an account? Log In</a>
+            </div>
         </div>
-    </div>
 
-    <footer class="footer">
-        <div class="contacts">
-            <p>+7 (921) 766-19-12 | +7 (900) 123-45-89</p>
-            <p>
-                <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a> |
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a> |
-                <a href="#" class="social-link"><i class="fab fa-telegram-plane"></i> Telegram</a> |
-                <a href="#" class="social-link"><i class="fab fa-vk"></i> VK</a>
-            </p>
-        </div>
-        <p>&copy; GenAPass. All rights reserved.</p>
-    </footer>
 
-    <script src="./js/scripts.js"></script>
+
+        <footer class="footer">
+            <div class="contacts">
+                <p>+7 (921) 766-19-12 | +7 (900) 123-45-89</p>
+                <p>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a> |
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a> |
+                    <a href="#" class="social-link"><i class="fab fa-telegram-plane"></i> Telegram</a> |
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i> VK</a>
+                </p>
+            </div>
+            <p>&copy; GenAPass. All rights reserved.</p>
+        </footer>
+
+        <script>
+            const howToUseBtn = document.getElementById('howToUseBtn');
+            const howToUseModal = document.getElementById('howToUseModal');
+            const closeModal = document.getElementById('closeModal');
+
+            // Открыть модальное окно по нажатию на кнопку
+            if (howToUseBtn) {
+                howToUseBtn.addEventListener('click', () => {
+                    howToUseModal.style.display = 'block';
+                });
+            }
+
+            // Закрыть модальное окно по нажатию на кнопку "Close"
+            if (closeModal) {
+                closeModal.addEventListener('click', () => {
+                    howToUseModal.style.display = 'none';
+                });
+            }
+
+            // Закрыть модальное окно по клику вне его содержимого
+            window.addEventListener('click', (event) => {
+                if (event.target === howToUseModal) {
+                    howToUseModal.style.display = 'none';
+                }
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const faqItems = document.querySelectorAll(".faq-item");
+
+                faqItems.forEach(item => {
+                    const question = item.querySelector(".faq-question");
+
+                    question.addEventListener("click", () => {
+                        // Закрываем все открытые ответы
+                        faqItems.forEach(i => i.classList.remove("active"));
+                        // Открываем текущий
+                        if (!item.classList.contains("active")) {
+                            item.classList.add("active");
+                        }
+                    });
+                });
+            });
+
+        </script>
+
+        <script>
+            // Отслеживаем текущую секцию с помощью Intersection Observer
+            const sections = document.querySelectorAll('.scroll-section');
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            // Добавляем класс active к текущей секции
+                            entry.target.classList.add('active');
+                        } else {
+                            // Убираем класс active, если секция выходит из зоны видимости
+                            entry.target.classList.remove('active');
+                        }
+                    });
+                },
+                {
+                    threshold: 0.5, // Секция становится активной, когда 50% в области видимости
+                }
+            );
+
+            // Подключаем observer к каждой секции
+            sections.forEach((section) => observer.observe(section));
+
+        </script>
+
+        <script src="./js/scripts.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const burger = document.querySelector('.burger');
+                const nav = document.querySelector('.nav');
+
+                burger.addEventListener('click', () => {
+                    burger.classList.toggle('open');
+                    nav.classList.toggle('active');
+                });
+            });
+        </script>
+
 
 </body>
 

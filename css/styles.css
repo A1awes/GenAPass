@@ -45,7 +45,7 @@ body {
     font-weight: 700;
     font-size: 20px;
     user-select: none;
-    position: relative; 
+    position: relative;
 }
 
 .nav a::before {
@@ -56,17 +56,17 @@ body {
     width: 0;
     height: 2px;
     background-color: #ff5722;
-    transition: width 0.3s ease, left 0.3s ease; 
+    transition: width 0.3s ease, left 0.3s ease;
 }
 
 .nav a:hover::before {
-    width: 100%; 
-    left: 0; 
+    width: 100%;
+    left: 0;
 }
 
 .nav a.active::before {
-    width: 100%; 
-    left: 0; 
+    width: 100%;
+    left: 0;
 }
 
 .auth-buttons a {
@@ -106,14 +106,14 @@ body {
     font-size: 48px;
     margin-bottom: 20px;
     font-weight: 600;
-    
+
 }
 
 .main-content p {
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: 400;
-    
+
 }
 
 .start-now-btn {
@@ -319,15 +319,20 @@ ol li {
 
 /* Секция с белой полосой и надписью */
 .info-section {
-    background-color: white;
+    background-color: #f9f9f9;
+    ;
     padding: 30px 0;
     text-align: center;
 }
 
 .info-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* Центрирует по горизонтали */
     align-items: center;
+    /* Центрирует по вертикали */
+    height: 100%;
+    /* Если требуется занять всю высоту родительского элемента */
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -340,7 +345,8 @@ ol li {
 .cta-info-button {
     background-color: #57A19C;
     color: white;
-    padding: 40px 250px;
+    padding: 20px 50px;
+    /* Уменьшенный размер для мобильных устройств */
     text-transform: uppercase;
     font-size: 24px;
     font-weight: 600;
@@ -348,6 +354,8 @@ ol li {
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
+    transition: all 0.3s ease;
+    /* Добавляем плавный переход для изменений */
 }
 
 .cta-info-button:hover {
@@ -359,8 +367,10 @@ ol li {
     position: fixed;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    min-width: 300px; /* Установите минимальную ширину */
+    max-height: 80vh; /* Установите максимальную высоту */
     height: auto;
     background-color: #2B5E72;
     color: white;
@@ -369,7 +379,9 @@ ol li {
     z-index: 999;
     border-radius: 15px;
     padding: 20px;
+    overflow-y: auto; /* Добавлено свойство для скролла */
 }
+
 
 .modal-content {
     padding: 20px;
@@ -404,6 +416,29 @@ ol li {
 
     to {
         transform: translate(-50%, 100%);
+    }
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .cta-info-button {
+        padding: 15px 30px;
+        /* Уменьшаем отступы */
+        font-size: 18px;
+        /* Уменьшаем размер текста */
+        width: auto;
+        /* Убираем фиксированную ширину */
+    }
+
+    .info-container {
+        flex-direction: column;
+        /* Перестраиваем элементы в колонку */
+        text-align: center;
+    }
+
+    .info-logo {
+        margin-bottom: 20px;
+        /* Добавляем отступ под логотип */
     }
 }
 
@@ -444,7 +479,7 @@ ol li {
 .auth-container h2 {
     margin: 0 0 15px;
     text-align: center;
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 .auth-container input[type="text"],
@@ -459,7 +494,7 @@ ol li {
     margin: 12px 0;
     border-radius: 6px;
     font-size: 14px;
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 .auth-container button {
@@ -480,7 +515,7 @@ ol li {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 .auth-button {
@@ -720,6 +755,7 @@ ol li {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+
 }
 
 .password-generator h1 {
@@ -886,26 +922,31 @@ ol li {
 }
 
 .related-sites-list input[type="checkbox"] {
-    appearance: none; 
+    appearance: none;
     -webkit-appearance: none;
-    width: 24px; 
+    width: 24px;
+    /* Установка ширины */
     height: 24px;
+    /* Установка высоты */
+    min-width: 24px;
+    /* Минимальная ширина чекбокса */
     margin-right: 10px;
-    border: 2px solid #57859C; 
-    border-radius: 6px; 
-    background-color: rgba(240, 240, 240, 0.9); 
-    cursor: pointer; 
-    position: relative; 
+    border: 2px solid #57859C;
+    border-radius: 6px;
+    background-color: rgba(240, 240, 240, 0.9);
+    cursor: pointer;
+    position: relative;
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .related-sites-list input[type="checkbox"]:checked {
-    background-color: #57859C; 
+    background-color: #57859C;
     border-color: #57859C;
 }
 
 .related-sites-list input[type="checkbox"]:checked::before {
-    content: ''; 
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -913,16 +954,16 @@ ol li {
     height: 14px;
     border: solid white;
     border-width: 0 3px 3px 0;
-    transform: translate(-50%, -50%) rotate(45deg); 
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .related-sites-list input[type="checkbox"]:hover {
-    background-color: rgba(134, 183, 207, 0.8); 
+    background-color: rgba(134, 183, 207, 0.8);
 }
 
 .related-sites-list input[type="checkbox"]:focus {
-    outline: none; 
-    border-color: #0056b3; 
+    outline: none;
+    border-color: #0056b3;
 }
 
 body.dark-theme .related-sites-list input[type="checkbox"] {
@@ -945,7 +986,8 @@ body.dark-theme .related-sites-list input[type="checkbox"]:hover {
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 800px;
+    min-width: 500px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -973,6 +1015,17 @@ body.dark-theme .related-sites-list input[type="checkbox"]:hover {
     margin-right: 15px;
     border-radius: 4px;
     pointer-events: none;
+}
+
+.related-sites-list .related-site {
+    display: flex;
+    /* Установить флекс для выравнивания содержимого */
+    align-items: center;
+    /* Вертикальное выравнивание */
+    width: 100%;
+    /* Занимает всю ширину */
+    margin-bottom: 10px;
+    /* Отступы между элементами */
 }
 
 /* Ссылка на сайт */
@@ -1184,4 +1237,409 @@ body.dark-theme .password-change-section button {
 
 body.dark-theme .password-change-section button:hover {
     background-color: #0056b3;
+}
+
+.theme-toggle:hover {
+    transform: rotate(20deg);
+}
+
+.theme-toggle {
+    transition: transform 0.3s ease;
+}
+
+.auth-container {
+    position: relative;
+    /* Родитель для абсолютного позиционирования */
+}
+
+.error-message {
+    color: #e74c3c;
+    /* Красный цвет ошибки */
+    font-size: 12px;
+    position: absolute;
+    top: 300px;
+    /* Настройте положение по вертикали для точного размещения */
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: none;
+    /* Скрыто по умолчанию */
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    /* Выровнять по правому краю */
+    margin-top: 15px;
+    /* Отступ сверху */
+}
+
+.button-group .edit-button,
+.button-group .btn-outline-primary {
+    margin-left: 10px;
+    /* Отступ между кнопками */
+}
+
+/* Стили для полей по умолчанию */
+.input-field {
+    color: #333;
+    /* Темный текст для светлой темы */
+}
+
+/* Стили для редактируемого состояния */
+.input-field.editable {
+    background-color: #f0f8ff;
+    /* Цвет фона при редактировании */
+}
+
+/* Для темной темы - цвет текста белый */
+body.dark-theme .input-field.editable {
+    color: #e0e0e0;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.faq-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.faq-section p {
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.faq {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+    color: #ff5722;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 10px;
+    color: #666;
+}
+
+.faq-answer p {
+    margin: 10px 0 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 100px;
+    /* Установите подходящую высоту для полного текста */
+    padding: 10px;
+}
+
+/* Dark Theme Styles */
+body.dark-theme .faq-section {
+    background-color: #2c2c2c;
+    /* Темный фон */
+    color: #ffffff;
+    /* Светлый текст */
+}
+
+body.dark-theme .faq-question {
+    color: #ffffff;
+    /* Светлый текст вопроса */
+}
+
+
+body.dark-theme .faq-answer {
+    color: #dddddd;
+    /* Светлый текст ответа */
+}
+
+body.dark-theme .faq-section {
+    background-color: #1f1f1f;
+    ;
+    /* Темный фон */
+    color: #ffffff;
+    /* Белый цвет текста */
+}
+
+body.dark-theme .faq-section h2,
+body.dark-theme .faq-section p,
+body.dark-theme .faq-section a {
+    color: #ffffff;
+    /* Белый текст для заголовков, параграфов и ссылок */
+}
+
+body.dark-theme .faq-question {
+    color: #ffffff;
+    /* Белый текст для вопросов */
+}
+
+body.dark-theme .faq-answer {
+    color: #ffffff;
+    /* Белый текст для ответов */
+}
+
+body.dark-theme .faq-question:hover {
+    color: #f8a829;
+    /* Яркий цвет при наведении */
+}
+
+/* Стили для ссылок "Terms of Service" и "Privacy Policy" */
+.terms-policy-link {
+    color: #007bff;
+    /* Цвет ссылок */
+    text-decoration: none;
+    /* Убираем подчеркивание */
+}
+
+/* При наведении на ссылки */
+.terms-policy-link:hover {
+    color: #0056b3;
+    /* Цвет при наведении */
+}
+
+/* Для тёмной темы, оставляем цвет ссылок синим */
+body.dark-theme .terms-policy-link {
+    color: #007bff !important;
+    /* Используем !important, чтобы переопределить другие стили */
+}
+
+body.dark-theme .terms-policy-link:hover {
+    color: #0056b3 !important;
+    /* Цвет при наведении остаётся прежним */
+}
+
+
+/* Контейнер */
+.scroll-container {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Секции с фоном */
+.scroll-section {
+    position: relative;
+    height: 100vh;
+    /* Высота экрана */
+    width: 100%;
+    background-size: cover;
+    /* Обрезаем изображение пропорционально */
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Затемнение фона для читаемости текста */
+.scroll-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Полупрозрачное перекрытие */
+    z-index: 1;
+}
+
+/* Контент внутри секции */
+.content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+}
+
+/* Кнопки */
+.cta-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #57859C;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+.scroll-section {
+    transition: filter 0.5s ease, transform 0.5s ease;
+    filter: brightness(0.8);
+    /* Уменьшаем яркость вместо прозрачности */
+    transform: scale(0.95);
+}
+
+.scroll-section.active {
+    filter: brightness(1);
+    /* Восстанавливаем яркость */
+    transform: scale(1);
+}
+
+/* Базовые стили для бургер-меню */
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 150;
+}
+
+.burger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Анимация бургер-меню */
+.burger.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Стили для мобильной навигации */
+@media (max-width: 768px) {
+    .burger {
+        display: flex;
+    }
+
+    .nav {
+        position: absolute;
+        margin-top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 100;
+    }
+
+    .nav.active {
+        transform: translateY(0);
+    }
+
+    .nav a {
+        font-size: 18px;
+    }
+
+    .auth-buttons {
+        display: none;
+    }
+}
+
+/* Раскрытие бургер-меню на весь экран */
+@media (max-width: 768px) {
+
+    .nav.active {
+        transform: translateY(0);
+        /* Показываем меню */
+    }
+
+
+    /* Кнопки регистрации и входа внизу */
+    .auth-buttons {
+        position: absolute;
+        ;
+        /* Расположение кнопок внизу экрана */
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 20px;
+        padding-right: 100px;
+        /* Добавляет внутренний отступ справа */
+    }
+}
+
+.auth-buttons a {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #57859C;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.auth-buttons a:hover {
+    background-color: #0056b3;
+}
+
+/* Для кнопок в верхнем правом углу, если нужно */
+.auth-buttons.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+
+/* Темная тема */
+body.dark-theme {
+    background-color: #1e1e1e;
+    color: #e4e4e4;
+}
+
+/* Навигация в темной теме */
+body.dark-theme .nav {
+    background-color: #1f1f1f;
+}
+
+body.dark-theme .nav a {
+    color: #e4e4e4;
 }

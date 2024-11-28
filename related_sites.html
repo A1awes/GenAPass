@@ -18,6 +18,37 @@
         height: 100%;
         margin: 0;
     }
+
+    /* Стили для больших экранов */
+    @media (min-width: 600px) {
+        .container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .add-new-site {
+            flex-direction: row;
+        }
+
+        .add-new-site input {
+            width: auto;
+            /* Вернуться к авторазмеру на больших экранах */
+            flex: 1;
+            /* Выровнять вводы по ширине */
+        }
+
+        .add-new-site button {
+            width: auto;
+            /* Выровнять кнопку по контенту */
+        }
+    }
+
+    /* Настройка кнопок для генерации паролей */
+    .password-change-section {
+        margin-top: 20px;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -28,8 +59,8 @@
             </a>
         </div>
         <nav class="nav">
-            <a href="index.html">Main</a> 
-            <a href="password.html">Passwords</a> 
+            <a href="index.html">Main</a>
+            <a href="password.html">Passwords</a>
             <a href="related_sites.html">Related Sites</a>
             <button id="themeToggle" class="theme-toggle">
                 <i class="fas fa-moon"></i>
@@ -39,6 +70,11 @@
             <a href="#" id="registerLink">Register</a>
             <a href="#" id="loginLink">Login</a>
         </div>
+        <button class="burger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
     <section class="site-list-container">
@@ -48,7 +84,8 @@
 
             <div class="add-new-site">
                 <input type="text" id="siteNameInput" placeholder="Название сайта" maxlength="30">
-                <input type="url" id="siteUrlInput" placeholder="https://example.com" pattern="https://.*" required>
+                <input type="url" id="siteUrlInput" placeholder="https://example.com" pattern="https://.*" required
+                    autocomplete="off">
                 <button onclick="addNewSite()">Добавить сайт</button>
             </div>
         </div>
@@ -81,6 +118,7 @@
                 </div>
             </div>
             <input type="password" id="password" placeholder="Password" required>
+            <p class="error-message" id="loginErrorMessage"></p>
             <button type="submit" class="auth-button">Log In</button>
             <a class="toggle-link auth-button" href="#" id="switchToRegister">Need an account? Register</a>
         </div>
@@ -164,6 +202,10 @@
             });
         }
 
+        function saveSiteList() {
+            localStorage.setItem('siteList', JSON.stringify(siteList));
+        }
+
         // Добавление нового сайта в список
         function addNewSite() {
             const siteNameInput = document.getElementById('siteNameInput');
@@ -178,11 +220,15 @@
                     url: siteUrl,
                     favicon: favicon,
                     password: generateRandomPassword(),
-                    updateFrequency: 'monthly'
+                    updateFrequency: 'monthly',
+                    lastUpdated: new Date().toISOString(),
+                    passwordHistory: [] // Массив для хранения истории паролей
                 };
+
                 siteList.push(newSite);
                 saveSiteList();
                 renderSiteList();
+
                 siteNameInput.value = '';
                 siteUrlInput.value = '';
             } else {
@@ -190,17 +236,33 @@
             }
         }
 
+
         // Генерация новых паролей для выбранных сайтов
         function generatePasswords() {
             const checkboxes = document.querySelectorAll('.site-checkbox');
             checkboxes.forEach((checkbox, index) => {
                 if (checkbox.checked) {
-                    siteList[index].password = generateRandomPassword();
+                    const site = siteList[index];
+
+                    // Проверка и инициализация passwordHistory
+                    if (!site.passwordHistory) {
+                        site.passwordHistory = [];
+                    }
+
+                    site.passwordHistory.push({
+                        password: site.password,
+                        date: site.lastUpdated || new Date().toISOString()
+                    });
+
+                    site.password = generateRandomPassword();
+                    site.lastUpdated = new Date().toISOString();
                 }
             });
-            saveSiteList();
-            renderSiteList();
+
+            saveSiteList();  // Сохраняем обновлённый siteList
+            renderSiteList(); // Обновляем DOM
         }
+
 
         // Удаление сайта из списка
         function deleteSite(index) {
@@ -209,14 +271,14 @@
             renderSiteList();
         }
 
-        // Отображение списка сайтов с чекбоксами
+        // Функция отображения списка сайтов
         function renderSiteList() {
             const siteListElement = document.getElementById('siteList');
             siteListElement.innerHTML = '';
 
             siteList.forEach((site, index) => {
                 const siteElement = document.createElement('li');
-                siteElement.className = 'related-site'; // Добавляем класс для дополнительных стилей
+                siteElement.className = 'related-site';
 
                 siteElement.innerHTML = `
             <input type="checkbox" class="site-checkbox" id="checkbox-${index}">
@@ -234,11 +296,27 @@
                     <option value="yearly" ${site.updateFrequency === 'yearly' ? 'selected' : ''}>Каждый год</option>
                 </select>
             </label>
-            <button onclick="deleteSite(${index})">Удалить</button>
+            <button onclick="deleteSite(${index})">Del</button>
         `;
                 siteListElement.appendChild(siteElement);
             });
         }
+
+        // Обновление пароля и даты
+        function updateSitePassword(site) {
+            if (!site.passwordHistory) {
+                site.passwordHistory = [];
+            }
+
+            site.passwordHistory.push({
+                password: site.password,
+                date: site.lastUpdated
+            });
+
+            site.password = generateRandomPassword();
+            site.lastUpdated = new Date().toISOString();
+        }
+
 
         // Обновление частоты обновления пароля
         function updateFrequency(index, frequency) {
@@ -258,6 +336,7 @@
 
         // При загрузке страницы отображаем список сайтов
         document.addEventListener('DOMContentLoaded', renderSiteList);
+
     </script>
 
     <!-- Footer -->
@@ -273,6 +352,18 @@
         </div>
         <p>&copy; GenAPass. Все права защищены.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav');
+
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('open');
+                nav.classList.toggle('active');
+            });
+        });
+    </script>
 
     <script src="./js/scripts.js"></script>
 </body>

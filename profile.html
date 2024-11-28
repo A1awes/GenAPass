@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAPass</title>
+    <link rel="icon" href="./img/a290ce7b8d2b20d77fc2c81936f0f463.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<style>
+    /* Основной стиль страницы профиля */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        margin: 0;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-section {
+        display: flex;
+        justify-content: center;
+        padding: 200px 20px;
+    }
+
+    .profile-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+        max-width: 1200px;
+        width: 100%;
+        max-height: 6000px;
+        /* Ограничение максимальной высоты */
+        /* Добавляет вертикальную прокрутку при необходимости */
+    }
+
+    .profile-sidebar {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        /* Устанавливает максимальную высоту */
+        /* Добавляет вертикальную прокрутку при необходимости */
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 10px 0;
+    }
+
+    .profile-info h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .profile-info p {
+        font-size: 14px;
+        color: #777;
+        margin: 10px 0;
+    }
+
+    .btn-primary,
+    .btn-outline-primary,
+    .edit-button {
+        background-color: #57859C;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 0 px;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-outline-primary {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+    }
+
+    .btn-primary:hover,
+    .edit-button:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #e0f7ff;
+    }
+
+    .contact-info {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .contact-info h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .contact-info p {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        margin: 8px 0;
+        color: #555;
+    }
+
+    .contact-info i {
+        margin-right: 8px;
+        color: #007bff;
+    }
+
+    /* Темная тема */
+    body.dark-theme {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    body.dark-theme .header {
+        background-color: #1f1f1f;
+        color: #e0e0e0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    body.dark-theme .profile-sidebar {
+        background-color: #1f1f1f;
+        color: #e0e0e0;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark-theme .profile-info h2 {
+        color: #e0e0e0;
+    }
+
+
+    .ad-banner {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .banner-image {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    /* Обновляем стиль .info-panel для легкого, прозрачного текста */
+    .info-panel {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        /* Устанавливаем новый шрифт */
+        overflow-y: auto;
+    }
+
+    .info-panel h3 {
+        font-size: 20px;
+        font-weight: 400;
+        color: rgba(51, 51, 51, 0.7);
+        /* Серый цвет с прозрачностью */
+        margin-bottom: 10px;
+    }
+
+    .info-panel p {
+        font-size: 16px;
+        color: rgba(85, 85, 85, 0.6);
+        /* Более светлый серый цвет с прозрачностью */
+        font-weight: 300;
+        /* Легкий шрифт */
+        font-style: italic;
+        /* Курсив для временного эффекта */
+    }
+
+    .info-panel {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    body.dark-theme .info-panel {
+        background-color: #1f1f1f;
+        color: #e0e0e0;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Принудительно сделать текст сайтов белым в темной теме */
+    body.dark-theme .info-panel a {
+        color: #ffffff !important;
+    }
+
+    body.dark-theme .info-panel h3,
+    body.dark-theme .info-panel p {
+        color: rgba(224, 224, 224, 0.9);
+        /* Чуть светлее для читабельности */
+    }
+
+    body.dark-theme .info-panel ul li {
+        color: #d0d0d0;
+        /* Цвет текста для истории паролей */
+    }
+
+    .info-panel {
+        position: relative;
+        /* Устанавливаем относительное позиционирование для контейнера */
+        padding-bottom: 60px;
+        /* Добавляем отступ снизу для кнопки */
+    }
+
+    /* Стиль кнопки */
+    .close-button {
+        background-color: #57859C;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 5px;
+    }
+
+    .close-button:hover {
+        background-color: #0056b3;
+        /* Цвет при наведении */
+    }
+
+    .profile-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .delete-icon {
+        color: #ff5555;
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+    }
+
+    .delete-icon:hover {
+        color: #ff0000;
+    }
+
+    #passwordHistoryDisplay {
+        max-height: 2s00px;
+        /* Установите максимальную высоту */
+        overflow-y: auto;
+        /* Добавляет вертикальную прокрутку при необходимости */
+        border: 1px solid #ccc;
+        /* Опционально: граница для визуального отделения */
+        padding: 10px;
+        /* Опционально: отступы */
+        margin: 5px 0;
+        /* Опционально: внешний отступ */
+    }
+
+    /* Кнопка Exit (красный цвет) */
+    #logoutButton {
+        background-color: #ff5555;
+        color: #fff;
+    }
+
+    #logoutButton:hover {
+        background-color: #ff0000;
+    }
+
+    /* Кнопка Close (в стиле других кнопок) */
+    #closeDetails {
+        background-color: #57859C;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    #closeDetails:hover {
+        background-color: #0056b3;
+    }
+
+
+    /* Обертка для html и body, чтобы занять 100% высоты */
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Основной контент (заполняет пространство между хедером и футером) */
+    .profile-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        margin: 160px auto 60px;
+        flex-grow: 1;
+        max-width: 1200px;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    /* Футер, прикрепленный к нижней части экрана */
+    .footer {
+        text-align: center;
+        padding: 20px;
+        width: 100%;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        /* Замените margin-top на sticky */
+        bottom: 0;
+        /* Привязываем футер к низу */
+    }
+
+
+    .profile-sidebar {
+        /* Убедитесь, что sidebar имеет необходимую высоту */
+        position: relative;
+        /* для правильного позиционирования внутренних элементов */
+    }
+
+    #passwordHistoryDisplay {
+        max-height: calc(550px);
+        /* или другое значение для подгонки под layout */
+        overflow-y: auto;
+        /* добавляет прокрутку, если контент превышает max-height */
+    }
+
+    body.dark-theme #userRole {
+        color: #ffffff;
+        /* Белый цвет текста */
+    }
+
+
+    .advertisement {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        /* Нужно для позиционирования */
+    }
+
+    /* Темная тема для контейнера с рекламой */
+    body.dark-theme .advertisement {
+        background-color: #2a2a2a;
+        /* Тёмный фон */
+        color: #e0e0e0;
+        /* Светлый текст */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        /* Увеличенная тень для контраста */
+    }
+
+    body.dark-theme .advertisement h4 {
+        color: #ffffff;
+        /* Белый цвет для заголовка */
+    }
+
+    body.dark-theme .advertisement p {
+        color: #f5f5f5;
+        /* Светло-серый для текста */
+
+    }
+
+    body.dark-theme {
+        scrollbar-color: #4b4b4b #2a2a2a;
+        /* Цвет ползунка и фона для Firefox */
+        scrollbar-width: thin;
+        /* Тонкий скроллбар для Firefox */
+    }
+
+    /* Кастомизация скроллбара для Webkit-браузеров (Chrome, Safari) */
+    body.dark-theme::-webkit-scrollbar {
+        width: 8px;
+        /* Ширина скроллбара */
+    }
+
+    body.dark-theme::-webkit-scrollbar-track {
+        background-color: #2a2a2a;
+        /* Темный фон для трека скроллбара */
+        border-radius: 4px;
+        /* Скругленные углы */
+    }
+
+    body.dark-theme::-webkit-scrollbar-thumb {
+        background-color: #4b4b4b;
+        /* Цвет ползунка */
+        border-radius: 4px;
+        /* Скругленные углы */
+        border: 2px solid #2a2a2a;
+        /* Тонкая граница вокруг ползунка */
+    }
+
+    /* Стиль для скроллбара при наведении */
+    body.dark-theme::-webkit-scrollbar-thumb:hover {
+        background-color: #6b6b6b;
+        /* Более светлый цвет ползунка при наведении */
+    }
+
+    .info-panel {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        position: relative;
+        padding-bottom: 60px;
+    }
+
+    .info-panel h3 {
+        font-size: 20px;
+        font-weight: 400;
+        color: rgba(51, 51, 51, 0.7);
+        margin-bottom: 10px;
+    }
+
+    .info-panel p {
+        font-size: 16px;
+        color: rgba(85, 85, 85, 0.6);
+        font-weight: 300;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .info-panel h4 {
+        font-size: 18px;
+        color: rgba(51, 51, 51, 0.7);
+        margin-bottom: 10px;
+    }
+
+    .info-panel ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .info-panel ul li {
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-panel ul li span {
+        flex: 1;
+        word-break: break-all;
+    }
+
+    .info-panel ul li button {
+        background-color: #57859C;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .info-panel ul li button:hover {
+        background-color: #0056b3;
+    }
+
+    .close-button {
+        background-color: #57859C;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    .close-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Медиазапросы для адаптивного дизайна */
+    @media (max-width: 768px) {
+        .profile-container {
+            grid-template-columns: 1fr;
+            margin-top: 40px;
+            /* Один столбец на мобильных устройствах */
+        }
+
+        .profile-section {
+            padding: 100px 20px;
+            /* Уменьшите внутренние отступы */
+        }
+
+        .profile-sidebar {
+            padding: 15px;
+            /* Уменьшите отступы в сайдбаре */
+        }
+
+        .profile-picture {
+            width: 80px;
+            /* Уменьшите размер изображения профиля */
+            height: 80px;
+        }
+
+        .profile-info h2 {
+            font-size: 20px;
+            /* Уменьшите размер шрифта для заголовка */
+        }
+
+        .profile-info p {
+            font-size: 12px;
+            /* Уменьшите размер шрифта для описания */
+        }
+
+        .btn-primary,
+        .btn-outline-primary,
+        .edit-button,
+        #closeDetails {
+            width: 100%;
+            /* Кнопки занимают всю ширину на мобильных устройствах */
+            padding: 12px;
+            /* Увеличьте высоту кнопок для удобства на сенсорных экранах */
+            margin-top: 10px;
+            /* Отступ между кнопками */
+        }
+
+        .info-panel {
+            padding: 15px;
+            /* Уменьшите отступы в панели информации */
+        }
+
+        .info-panel h3 {
+            font-size: 18px;
+            /* Уменьшите размер заголовка в информационной панели */
+        }
+
+        .info-panel p,
+        .info-panel ul li {
+            font-size: 14px;
+            /* Уменьшите размер шрифта для текста в панели информации */
+        }
+
+        .advertisement {
+            margin: 20px 0;
+            /* Увеличьте отступы от рекламы */
+            padding: 10px;
+            /* Уменьшите отступ для самой рекламы */
+        }
+
+        .footer {
+            padding: 15px;
+            /* Уменьшите отступы в футере */
+        }
+
+        .info-panel {
+            position: relative;
+            /* Обеспечить правильное позиционирование */
+            width: 100%;
+            /* Полная ширина для мобильных устройств */
+            /* Отображение в блочном режиме для корректной обработки */
+        }
+    }
+
+    /* Темная тема для панели информации */
+    body.dark-theme .info-panel {
+        background-color: #1f1f1f;
+        color: #e0e0e0;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark-theme .info-panel h3,
+    body.dark-theme .info-panel p,
+    body.dark-theme .info-panel h4 {
+        color: rgba(224, 224, 224, 0.9);
+    }
+
+    body.dark-theme .info-panel ul li {
+        background-color: #2a2a2a;
+        color: #d0d0d0;
+    }
+</style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="./img/a290ce7b8d2b20d77fc2c81936f0f463.png" alt="GenAPass Logo">
+            </a>
+        </div>
+        <nav class="nav">
+            <a href="index.html">Main</a>
+            <a href="password.html">Passwords</a>
+            <a href="related_sites.html">Related Sites</a>
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" id="registerLink">Register</a>
+            <a href="#" id="loginLink">Login</a>
+        </div>
+        <button class="burger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-container">
+            <!-- Левая колонка с профилем -->
+            <div class="profile-sidebar">
+                <div class="profile-icons">
+                    <!-- Иконка мусорного ведра для удаления профиля -->
+                    <i class="fas fa-trash delete-icon" id="deleteProfileIcon" title="Удалить профиль"></i>
+                </div>
+                <img src="./img/124545.jpg" alt="Profile Picture" class="profile-picture">
+                <div class="profile-info">
+                    <h2 id="userName" contentEditable="false">Whiskers</h2>
+                    <p id="userRole" contentEditable="false">Full-time Keyboard Enthusiast<br>San Francisco, CA</p>
+                </div>
+                <div class="contact-info" id="profileSites">
+                    <h4>Approved Websites:</h4>
+                </div>
+                <button id="logoutButton" class="btn-primary">Exit</button>
+                <button id="editButton" class="btn-primary edit-button">Edit</button>
+            </div>
+            <!-- Контейнер для рекламы -->
+            <div class="advertisement" id="advertisement" style="cursor: pointer;">
+                <img src="./img/баннерная-реклама.jpg" alt="Ваше изображение" class="banner-image">
+            </div>
+
+
+            <div class="info-panel" id="siteDetails" style="display: none;">
+                <h3 id="siteNameDisplay">Сайт</h3>
+                <p id="siteUrlDisplay">URL: <span></span></p>
+                <p id="sitePasswordDisplay">Пароль: <span></span></p>
+                <h4>История паролей:</h4>
+                <ul id="passwordHistoryDisplay"></ul>
+                <button id="closeDetails" class="btn-primary close-button">Close</button>
+            </div>
+    </section>
+
+    <footer class="footer">
+        <div class="contacts">
+            <p>+7 (921) 766-19-12 | +7 (900) 123-45-89</p>
+            <p>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a> |
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a> |
+                <a href="#" class="social-link"><i class="fab fa-telegram-plane"></i> Telegram</a> |
+                <a href="#" class="social-link"><i class="fab fa-vk"></i> VK</a>
+            </p>
+        </div>
+        <p>&copy; GenAPass. Все права защищены.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileSites = document.getElementById('profileSites');
+            let siteList = JSON.parse(localStorage.getItem('siteList')) || [];
+
+            function renderProfileSites() {
+                profileSites.innerHTML = '<h4>Approved Websites:</h4>';
+                siteList.forEach(site => {
+                    const siteInfo = document.createElement("p");
+                    siteInfo.innerHTML = `<i class="fas fa-link"></i> <a href="${site.url}" target="_blank">${site.name}</a>`;
+                    profileSites.appendChild(siteInfo);
+                });
+            }
+
+            renderProfileSites();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileSites = document.getElementById('profileSites');
+            const siteDetails = document.getElementById('siteDetails');
+            const siteNameDisplay = document.getElementById('siteNameDisplay');
+            const siteUrlDisplay = document.getElementById('siteUrlDisplay');
+            const sitePasswordDisplay = document.getElementById('sitePasswordDisplay');
+            const passwordHistoryDisplay = document.getElementById('passwordHistoryDisplay');
+
+            let siteList = JSON.parse(localStorage.getItem('siteList')) || [];
+
+            function renderProfileSites() {
+                profileSites.innerHTML = '<h4>Approved Websites:</h4>';
+                siteList.forEach((site, index) => {
+                    const siteInfo = document.createElement("p");
+                    siteInfo.innerHTML = `<i class="fas fa-link"></i> <a href="#" class="site-link" data-index="${index}">${site.name}</a>`;
+                    profileSites.appendChild(siteInfo);
+                });
+
+                const siteLinks = document.querySelectorAll('.site-link');
+                siteLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const index = e.target.getAttribute('data-index');
+                        displaySiteDetails(index);
+                    });
+                });
+            }
+
+            function displaySiteDetails(index) {
+                const site = siteList[index];
+
+                // Отображение имени и URL сайта
+                siteNameDisplay.textContent = site.name;
+                siteUrlDisplay.querySelector('span').textContent = site.url;
+
+                // Отображение текущего пароля
+                sitePasswordDisplay.querySelector('span').textContent = site.password;
+
+                // Отображение истории смены паролей с датами
+                const passwordHistory = site.passwordHistory || []; // Проверяем наличие истории паролей
+                passwordHistoryDisplay.innerHTML = ''; // Очищаем список перед добавлением
+
+                passwordHistory.forEach((entry, i) => {
+                    const li = document.createElement('li');
+                    const passwordSpan = document.createElement('span');
+                    passwordSpan.textContent = entry.password;
+
+                    const copyButton = document.createElement('button');
+                    copyButton.textContent = 'Copy';
+                    copyButton.addEventListener('click', () => {
+                        navigator.clipboard.writeText(entry.password).then(() => {
+                            alert('Password copied to clipboard!');
+                        });
+                    });
+
+                    li.appendChild(passwordSpan);
+                    li.appendChild(copyButton);
+
+                    if (i === 0) {
+                        // Для первой строки отображаем только пароль без даты
+                        li.textContent = `Последний зафиксированный пароль: ${entry.password}`;
+                    } else {
+                        const date = new Date(entry.date);
+                        li.textContent = `Пароль: ${entry.password}, изменён: ${!isNaN(date.getTime()) ? date.toLocaleDateString() : 'Некорректная дата'}`;
+                    }
+
+                    passwordHistoryDisplay.appendChild(li);
+                });
+
+                siteDetails.style.display = 'block';
+                document.getElementById('advertisement').style.display = 'none'; // Скрытие рекламы
+            }
+
+            // Закрытие информации о сайте
+            document.getElementById('closeDetails').addEventListener('click', () => {
+                siteDetails.style.display = 'none';
+                document.getElementById('advertisement').style.display = 'block'; // Показ рекламы
+            });
+
+            renderProfileSites();
+        });
+
+
+    </script>
+
+    <script>document.getElementById('deleteProfileIcon').addEventListener('click', () => {
+            // Подтверждение перед удалением
+            const confirmDelete = confirm("Вы уверены, что хотите удалить профиль?");
+            if (confirmDelete) {
+                // Перенаправляем пользователя на страницу причины удаления
+                window.location.href = 'delete_reason.html';
+            }
+        });
+    </script>
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            const userName = document.getElementById('userName');
+            const userRole = document.getElementById('userRole');
+            const editButton = document.getElementById('editButton');
+
+            // Загружаем данные из localStorage при загрузке страницы
+            const storedName = localStorage.getItem('userName');
+            const storedRole = localStorage.getItem('userRole');
+            if (storedName) userName.textContent = storedName;
+            if (storedRole) userRole.innerHTML = storedRole;
+
+            // Обработчик клика на кнопку "Редактировать"
+            editButton.addEventListener('click', () => {
+                const isEditable = userName.contentEditable === 'true';
+
+                if (isEditable) {
+                    // Завершить редактирование и сохранить данные
+                    userName.contentEditable = 'false';
+                    userRole.contentEditable = 'false';
+                    editButton.textContent = 'Edit';
+
+                    // Сохраняем данные в localStorage
+                    localStorage.setItem('userName', userName.textContent);
+                    localStorage.setItem('userRole', userRole.innerHTML);
+                } else {
+                    // Включить режим редактирования
+                    userName.contentEditable = 'true';
+                    userRole.contentEditable = 'true';
+                    editButton.textContent = 'Save';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // предыдущий код
+
+            function adjustInfoPanelHeight() {
+                const infoPanel = document.getElementById('siteDetails');
+                const footer = document.querySelector('.footer');
+                const windowHeight = window.innerHeight;
+                const contentHeight = footer.offsetTop;
+
+                if (infoPanel.style.display === 'block') {
+                    const availableHeight = windowHeight - contentHeight - 40; // 40 - отступы
+                    infoPanel.style.maxHeight = availableHeight + 'px';
+                } else {
+                    infoPanel.style.maxHeight = ''; // Сбрасываем maxHeight, когда панель скрыта
+                }
+            }
+
+            window.onload = adjustInfoPanelHeight;
+            window.onresize = adjustInfoPanelHeight;
+        });
+
+    </script>
+
+    <script>
+        document.getElementById('advertisement').addEventListener('click', () => {
+            window.open('https://theuselessweb.com/', '_blank'); // Замените 'https://www.example.com' на URL интересного сайта
+        });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const infoPanel = document.getElementById('siteDetails');
+            const footer = document.querySelector('.footer');
+
+            function adjustInfoPanelHeight() {
+                if (infoPanel.style.display === 'block') {
+                    const windowHeight = window.innerHeight;
+                    const footerRect = footer.getBoundingClientRect(); // Получаем точное положение футера
+                    const footerHeight = footerRect.height;
+                    const footerTop = footerRect.top;
+                    const availableHeight = footerTop - 40; // Учитываем отступы
+
+                    // Устанавливаем высоту панели
+                    if (availableHeight > 0) {
+                        infoPanel.style.maxHeight = `${availableHeight}px`;
+                        infoPanel.style.overflowY = 'auto'; // Добавляем прокрутку только при необходимости
+                    }
+                } else {
+                    // Сбрасываем стили, если панель скрыта
+                    infoPanel.style.maxHeight = '';
+                    infoPanel.style.overflowY = '';
+                }
+            }
+
+            // Вызов при загрузке страницы и изменении размеров
+            window.addEventListener('resize', adjustInfoPanelHeight);
+            window.addEventListener('load', adjustInfoPanelHeight);
+
+            // Повторное обновление, когда панель открывается
+            document.getElementById('closeDetails').addEventListener('click', () => {
+                infoPanel.style.display = 'none';
+                adjustInfoPanelHeight(); // Сбрасываем высоту при закрытии
+            });
+
+            // Пример вызова при открытии панели
+            const showPanel = (index) => {
+                infoPanel.style.display = 'block';
+                adjustInfoPanelHeight(); // Устанавливаем высоту при открытии
+            };
+
+            // Тестовые данные для проверки работы
+            document.querySelectorAll('.site-link').forEach((link, index) => {
+                link.addEventListener('click', () => showPanel(index));
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav');
+
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('open');
+                nav.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <script src="./js/scripts.js"></script>
+</body>
+
+</html>
